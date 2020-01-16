@@ -1,0 +1,28 @@
+h1 {
+   color: rgb(153, 25, 25);
+   text-align: center;
+}
+table {
+   border: 2px solid black;
+   border-collapse: collapse;
+   width: 50%;
+}
+th,
+td {
+   border: 1px solid black;
+   padding: 5px;
+}
+th {
+   background-color: lightgrey;
+}
+ul {
+   font-size: 1.3em;
+}
+.pic {
+   width: 35%;
+   height: 35%;
+}
+#title {
+   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+   text-transform: uppercase;
+}
