@@ -2,6 +2,12 @@
 <html>
    <head>
       <title>Memes</title>
+      <link
+         rel="stylesheet"
+         href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+         crossorigin="anonymous"
+      />
       <link rel="stylesheet" type="text/css" href="mystyle.css" />
    </head>
    <body>
@@ -9,10 +15,15 @@
          <img src="rs.jpg" class="pic" />
          <img src="gubmt.png" class="pic" />
       </div>
-      <form action="home.html">
-         <p style="text-align: center;">
-            <input type="Submit" value="Back to Home Page" />
-         </p>
-      </form>
+      <div class="return">
+         <a
+            href="home.html"
+            class="btn btn-primary btn-lg active"
+            role="button"
+            aria-pressed="true"
+            text-align="center"
+            >Back to home page</a
+         >
+      </div>
    </body>
 </html>
