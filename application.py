@@ -1,18 +1,19 @@
-import os
-
 from flask import Flask, render_template, request
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from models import *
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL") 
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False 
+
+db.init_app(app)
 
 #engine = create_engine(os.getenv("DATABASE_URL"))
 #db url --> C:\Program Files\PostgreSQL\12\bin
-db = scoped_session(sessionmaker(bind=engine))
+#db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-   flights = db.execute("SELECT * FROM flights").fetchall()
+   flights = Flight.query.all()
    return render_template("index.html", flights=flights)
 
 @app.route("/book", methods=["POST"])
@@ -27,9 +28,9 @@ def book():
         return render_template("error.html", message="Invalid flight number.")
 
     # Make sure the flight exists.
-    if db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).rowcount == 0:
+    flight = Flight.query.get(flight_id)
+    if not flight:
         return render_template("error.html", message="No such flight with that id.")
-    db.execute("INSERT INTO passengers (name, flight_id) VALUES (:name, :flight_id)",
-            {"name": firstandlast, "flight_id": flight_id})
-    db.commit()
+    
+    flight.add_passenger(firstandlast)
     return render_template("success.html")
