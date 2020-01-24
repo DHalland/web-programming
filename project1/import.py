@@ -19,15 +19,26 @@ def main():
       author VARCHAR(40) NOT NULL,
       year integer)'''
    )
+   db.execute('''CREATE TABLE IF NOT EXISTS booksapi.users (
+      username VARCHAR(50) PRIMARY KEY,
+      email VARCHAR(50) NOT NULL,
+      password varchar(100))'''
+   )
+   db.execute('''CREATE TABLE IF NOT EXISTS booksapi.reviews (
+      isbn VARCHAR(14) REFERENCES booksapi.books,
+      username VARCHAR(50) REFERENCES booksapi.users,
+      review text,
+      rating integer)'''
+   )
 
    f = open("books.csv")
    reader = csv.reader(f)
    next(reader)
    for isbn, title, author, year in reader:
       db.execute('''INSERT INTO booksapi.books (isbn, title, author, year) 
-         VALUES (:isbn, :title, :author, :year)''', 
+         VALUES (:isbn, :title, :author, :year)
+         ON CONFLICT (isbn) DO NOTHING''', 
          {"isbn":isbn,"title":title,"author":author, "year":year})
-      print("Added book with ISBN=%s" % isbn)
    db.commit()
 
 if __name__ == "__main__":
