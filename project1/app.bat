@@ -2,4 +2,5 @@ set DATABASE_URL=postgres://stuwkxxlkamgbx:0eb76a0c6de2da2e9fa5bf2f98c8e192377a5
 set FLASK_APP=application.py
 set FLASK_ENV=development
 set FLASK_DEBUG=1
+:: python import.py
 flask run
